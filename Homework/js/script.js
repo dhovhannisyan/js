@@ -1,38 +1,20 @@
 window.onload = function() {
 
-  let domText = document.getElementById('text'),
-      domUpperBtn = document.getElementById('toUpper'),
-      domLowerBtn = document.getElementById('toLower'),
-      domBigFontSizeBtn = document.getElementById('bigFont'),
-      domSmallFontSizeBtn = document.getElementById('smallFont'),
-      domChangeColorBtn = document.getElementById('changeColor');
+  let domCircleContainer = document.getElementById('circleContainer'),
+    domAddBbtn = document.getElementById('addCircle');
 
-  domLowerBtn.onclick = function() {
-    domText.innerHTML = domText.textContent.toLocaleLowerCase()
+  let Circle = function(rgbColor){
+    let self = this;
+    this.dom = document.createElement('div');
+    this.dom.classList.add('circle');
+    this.dom.style.backgroundColor = `rgb(${rgbColor[0]}, ${rgbColor[1]}, ${rgbColor[2]})`;
+    this.dom.onclick = function(){
+      self.dom.remove();
+    } 
   }
 
-  domUpperBtn.onclick = function() {
-    domText.innerHTML = domText.textContent.toUpperCase()
-  }
-
-  domBigFontSizeBtn.onclick = function(){
-    let size = window.getComputedStyle(domText).fontSize; //get value of fonteSize
-    size = size.slice(0, size.length-2); //delete 'px'
-    size = parseFloat(size) + 2; //get new fonteSize 
-    domText.style.fontSize = size + 'px'; //set new size
-  }
-
-  domSmallFontSizeBtn.onclick = function(){
-    let size = window.getComputedStyle(domText).fontSize; 
-    size = size.slice(0, size.length-2); 
-    size = parseFloat(size) - 2; 
-    domText.style.fontSize = size + 'px';
-  }
-
-  domChangeColorBtn.onclick = function(){
-    let rgb = getRandomColor();
-    domText.style.color = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-    domText.style.borderColor = 'black'; //doesn't change border color
+  domAddBbtn.onclick = function(){
+    domCircleContainer.appendChild(new Circle(getRandomColor()).dom);
   }
 
   function getRandomColor() {
