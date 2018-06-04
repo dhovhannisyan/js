@@ -1,0 +1,58 @@
+
+window.onload = function() {
+
+  let domImages = fromCollectionToArray(document.getElementsByClassName('menu-item')),
+      domCurrentImage = document.getElementById('current-img'),
+      currentImageIndex = 1,
+      prevImageIndex = 0,
+      changeImages = setInterval(function(){
+        setNextImg();
+      }, 3000);
+
+  function setEventsToImages(params) {
+
+    for(let i = 0; i < domImages.length; i++) {
+
+      domImages[i].onclick = function() {
+        
+        currentImageIndex = domImages.indexOf(this);
+        setNextImg();
+        clearInterval(changeImages);
+        changeImages = setInterval(function(){
+          setNextImg();
+        }, 3000);
+
+      } 
+
+    }
+
+  }
+
+  setEventsToImages();
+
+  function setNextImg() {
+
+    domCurrentImage.src = domImages[currentImageIndex].getAttribute('src');
+    domImages[currentImageIndex].classList.add('active');
+    if(currentImageIndex !== prevImageIndex){
+      domImages[prevImageIndex].classList.remove('active'); 
+    }
+    if(++currentImageIndex > 3){
+      currentImageIndex = 0;
+      prevImageIndex = 3;
+    }else{
+      prevImageIndex = currentImageIndex-1;
+    }
+
+  }
+
+  //from HtmlCollection to simple Array
+  function fromCollectionToArray(collection) {
+    let arr = [];
+    for(let i = 0; i < collection.length; i++) {
+      arr.push(collection[i])
+    }
+    return arr;
+  }
+
+} 
