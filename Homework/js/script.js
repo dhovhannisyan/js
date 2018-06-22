@@ -13,14 +13,7 @@ window.onload = function(){
       }
     }
 
-
-    let names = ['Susanna', 'Vardan', 'Armen', 'Gevorg', 'Babken', 'Gayane'];
-
-    
-
-
-
-    class User {
+  class User {
 
         constructor(firstName, lastName, age, email, password){
             // this.id = getID();
